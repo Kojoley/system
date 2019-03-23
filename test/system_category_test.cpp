@@ -102,6 +102,7 @@ static void test_message( sys::error_category const & cat, int ev )
 
     char buffer[ 4096 ]; // yes, really
     BOOST_TEST_CSTR_EQ( cat.message( ev, buffer, sizeof( buffer ) ), sys_strerror( ev ).c_str() );
+    BOOST_TEST_CSTR_EQ( cat.message( ev ).c_str(), sys_strerror( ev ).c_str() );
 }
 
 int main()
@@ -110,14 +111,7 @@ int main()
 
     // message
 
-    for( int i = -2; i < 1024; ++i )
-    {
-        test_message( cat, i );
-    }
-
-    test_message( cat, 5810 );
-
-    for( int i = 10000; i < 11032; ++i )
+    for( int i = -2; i <= 15999; ++i )
     {
         test_message( cat, i );
     }
